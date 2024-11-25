@@ -1,29 +1,40 @@
-package objects;
+package models;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Human implements Comparable<Human>, Serializable {
+public class Human implements Comparable<Human>, HasNumField<Human>, Serializable {
     private final String surname;
     private final Gender gender;
     private final int age;
 
-    public Human(Builder builder) {
+    private Human(Builder builder) {
         this.surname = builder.surname;
         this.gender = builder.gender;
         this.age = builder.age;
     }
 
-    public static class Builder{
-        private final String surname;
-        private Gender gender = Gender.MAN;
-        private int age = 18;
+    @Override
+    public int getNumField() {
+        return this.getAge();
+    }
 
-        public Builder(String surname) {
+    @Override
+    public String getNumFieldName() {
+        return "age";
+    }
+
+    public static class Builder{
+        private String surname;
+        private Gender gender;
+        private int age;
+
+        public Builder surname(String surname) {
             if (surname == null || surname.trim().isEmpty()) {
                 throw new IllegalArgumentException("Surname cannot be null or empty.");
             }
             this.surname = surname;
+            return this;
         }
 
         public Builder gender(Gender gender) {
@@ -44,6 +55,18 @@ public class Human implements Comparable<Human>, Serializable {
         }
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public int compareTo(Human other) {
 
@@ -55,7 +78,7 @@ public class Human implements Comparable<Human>, Serializable {
         if (ageComp != 0) {
             return ageComp;
         }
-        return this.gender.equals(other.gender);
+        return Integer.compare(this.gender.ordinal(), other.gender.ordinal());
     }
 
     @Override
@@ -70,5 +93,17 @@ public class Human implements Comparable<Human>, Serializable {
                 ", gender " + gender +
                 ", age " + age +
                 "}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Human other = (Human) obj;
+        return age == other.age
+                && surname.equalsIgnoreCase(other.surname)
+                && gender.ordinal() == other.gender.ordinal();
     }
 }

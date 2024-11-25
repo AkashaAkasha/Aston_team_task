@@ -1,29 +1,40 @@
-package objects;
+package models;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Barrel implements Comparable<Barrel>, Serializable {
+public class Barrel implements Comparable<Barrel>, HasNumField<Barrel>, Serializable {
     private final int volume;
     private final String storedMaterial;
     private final String barrelMaterial;
 
-    public Barrel(Builder builder) {
+    private Barrel(Builder builder) {
         this.volume = builder.volume;
         this.storedMaterial = builder.storedMaterial;
         this.barrelMaterial = builder.barrelMaterial;
     }
 
-    public static class Builder{
-        private final int volume;
-        private String storedMaterial = "Water";
-        private String barrelMaterial = "Plastic";
+    @Override
+    public int getNumField() {
+        return this.getVolume();
+    }
 
-        public Builder(int volume) {
+    @Override
+    public String getNumFieldName() {
+        return "volume";
+    }
+
+    public static class Builder{
+        private int volume;
+        private String storedMaterial;
+        private String barrelMaterial;
+
+        public Builder volume(int volume) {
             if (volume < 5 || volume > 100) {
                 throw new IllegalArgumentException("Volume must be between 5 and 100.");
             }
             this.volume = volume;
+            return this;
         }
 
         public Builder storedMaterial(String storedMaterial) {
@@ -46,6 +57,19 @@ public class Barrel implements Comparable<Barrel>, Serializable {
             return new Barrel(this);
         }
     }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public String getStoredMaterial() {
+        return storedMaterial;
+    }
+
+    public String getBarrelMaterial() {
+        return barrelMaterial;
+    }
+
     @Override
     public int compareTo(Barrel other) {
 
@@ -73,5 +97,17 @@ public class Barrel implements Comparable<Barrel>, Serializable {
                 ", storedMaterial " + storedMaterial +
                 ", barrelMaterial " + barrelMaterial +
                 "}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Barrel other = (Barrel) obj;
+        return volume == other.volume
+                && storedMaterial.equalsIgnoreCase(other.storedMaterial)
+                && barrelMaterial.equalsIgnoreCase(other.barrelMaterial);
     }
 }
