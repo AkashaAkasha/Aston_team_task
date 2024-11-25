@@ -68,7 +68,7 @@ public class Animal implements Comparable<Animal>, Serializable {
         if (colorComp != 0) {
             return colorComp;
         }
-        return (this.isHair && other.isHair)? 0: -1;
+        return ((Boolean)this.isHair).compareTo(other.isHair);
     }
 
     @Override

@@ -104,6 +104,6 @@ public class Human implements Comparable<Human>, HasNumField<Human>, Serializabl
         Human other = (Human) obj;
         return age == other.age
                 && surname.equalsIgnoreCase(other.surname)
-                && gender.ordinal() == other.gender.ordinal();
+                && gender.equals(other.gender);
     }
 }
