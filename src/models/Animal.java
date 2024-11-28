@@ -27,7 +27,7 @@ public class Animal implements Comparable<Animal>, Serializable {
             return this;
         }
 
-        public Builder yearColor(String yearColor) {
+        public Builder eyeColor(String yearColor) {
             if (yearColor == null || yearColor.trim().isEmpty()) {
                 throw new IllegalArgumentException("Color cannot be null or empty.");
             }

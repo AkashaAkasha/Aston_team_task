@@ -87,7 +87,7 @@ public class FillingFromConsole {
 
         return new Animal.Builder()
                 .kind(kind)
-                .yearColor(eyeColor)
+                .eyeColor(eyeColor)
                 .isHair(isHair)
                 .build();
     }

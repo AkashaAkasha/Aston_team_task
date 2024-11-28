@@ -18,7 +18,7 @@ public class SearchToString {
             System.out.println("Нет такого элемента.");
         } else {
             System.out.println("Индекс найденного элемента: " + index);
-            animal.toString();
+            System.out.println(animal.toString());
         }
     }
     public void foundBarrelToString(List<Barrel> barrels){
@@ -29,7 +29,7 @@ public class SearchToString {
             System.out.println("Нет такого элемента.");
         } else {
             System.out.println("Индекс найденного элемента: " + index);
-            barrel.toString();
+            System.out.println(barrel.toString());
         }
     }
     public void foundHumanToString(List<Human> people){
@@ -40,7 +40,7 @@ public class SearchToString {
             System.out.println("Нет такого элемента.");
         } else {
             System.out.println("Индекс найденного элемента: " + index);
-            human.toString();
+            System.out.println(human.toString());
         }
     }
 }
